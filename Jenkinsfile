@@ -21,7 +21,7 @@ pipeline {
       steps{
         script {
            sh 'docker tag flask:1.0 18.212.25.74:8081/repository/k8s-task/flask:1.0'
-           sh 'docker login -u admin -p ravali http://18.212.25.74:8081/repository/k8s-task/'
+           sh 'docker login -u ravali1505 -p Manoj@123@123 http://18.212.25.74:8081/repository/k8s-task/'
            sh 'docker push 18.212.25.74:8081/repository/k8s-task/flask:1.0'
            sh 'docker logout http://18.212.25.74:8081/repository/k8s-task/'
             }
