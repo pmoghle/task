@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    registry = "http://18.212.25.74:8081/"
+    registry = "http://ec2-18-212-25-74.compute-1.amazonaws.com:8081/"
     registryCredential = 'nexus'
     }
   agent any
@@ -21,7 +21,7 @@ pipeline {
       steps{
         script {
            sh 'docker tag flask:1.0 18.212.25.74:8081/repository/k8s-task/flask:1.0'
-           sh 'docker login -u ravali1505 -p Manoj@123@123 http://18.212.25.74:8081/repository/k8s-task/'
+           sh 'docker login -u ravali1505 -p Manoj@123@123'
            sh 'docker push 18.212.25.74:8081/repository/k8s-task/flask:1.0'
            sh 'docker logout http://18.212.25.74:8081/repository/k8s-task/'
             }
