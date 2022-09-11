@@ -15,8 +15,8 @@ pipeline {
         script {
           sh 'docker build -t flask:1.0 -f Dockerfile'
         }
-      }
-    }
+       }
+	  }
     stage('Deploy Image in to nexus registry') {
       steps{
         script {
@@ -29,11 +29,3 @@ pipeline {
         }
       }
     }
-    //stage('Remove Unused docker image') {
-      //steps{
-        //sh "docker rmi $registry:$BUILD_NUMBER"
-    }
-  }
-}
-  }
-}
