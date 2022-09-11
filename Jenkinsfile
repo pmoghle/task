@@ -13,7 +13,7 @@ pipeline {
    stage('Building image') {
       steps{
         script {
-          sh 'docker build -t flask1:1.0 .'
+          sh 'docker build -t flask:1.0 .'
         }
        }
 	  }
@@ -21,6 +21,7 @@ pipeline {
       steps{
         script {
 	   sh 'curl -XGET "admin:ravali" -X PUT http://18.212.25.74:8081/repository/maven-python/'
+		dockerimage.push("latest")
           // sh 'docker tag flask:1.0 18.212.25.74:8081/repository/k8s-task/flask:1.0'
            //sh 'docker login -u ravali1505 -p Manoj@123@123'
            //sh 'docker push 18.212.25.74:8081/repository/k8s-task/flask:1.0'
