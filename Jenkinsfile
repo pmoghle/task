@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    registry = "http://18.212.25.74:8081/repository/k8s-task/"
+    registry = "http://18.212.25.74:8081/"
     registryCredential = 'nexus'
     }
   agent any
