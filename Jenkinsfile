@@ -7,7 +7,7 @@ pipeline {
   stages {
     stage('Cloning Git') {
       steps {
-        git 'https://github.com/ganigapetaravali/task.git'
+        git branch:'main','https://github.com/ganigapetaravali/task.git'
       }
     }
   }
