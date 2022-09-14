@@ -30,16 +30,16 @@ pipeline {
           sh 'docker logout http://18.212.25.74:8001/repository/k8s-task/'
             }
           }
-        stage('k8s deployment'){
-            steps{
-                script{
-                    sh '''
-                    docker ps
-                    sh 'docker push 18.212.25.74:8001/repository/k8s-task/flask:5.0'
-                   // docker run -itd --name test-$BUILD_NUMBER 547480451431.dkr.ecr.ap-south-1.amazonaws.com/testrepo:$BUILD_NUMBER
-                    ls -lrth
-                    docker ps '''
-                }
+    stage('k8s deployment'){
+      steps{
+        script{
+           sh '''
+             docker ps
+                 sh 'docker push 18.212.25.74:8001/repository/k8s-task/flask:5.0'
+                 // docker run -itd --name test-$BUILD_NUMBER 547480451431.dkr.ecr.ap-south-1.amazonaws.com/testrepo:$BUILD_NUMBER
+                 ls -lrth
+                 docker ps '''
+               }
             }
 	}
     }
