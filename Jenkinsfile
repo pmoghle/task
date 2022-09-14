@@ -30,10 +30,7 @@ pipeline {
           sh 'docker logout http://18.212.25.74:8001/repository/k8s-task/'
             }
           }
-        }
-      }
-    }
-stage('k8s deployment'){
+        stage('k8s deployment'){
             steps{
                 script{
                     sh '''
@@ -44,3 +41,5 @@ stage('k8s deployment'){
                     docker ps '''
                 }
             }
+	}
+    }
