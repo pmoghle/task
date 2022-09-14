@@ -37,7 +37,7 @@ pipeline {
            sh '''
              docker ps
                  sh 'docker push 18.212.25.74:8001/repository/k8s-task/flask:5.0'
-                 // docker run -itd --name test-$BUILD_NUMBER 547480451431.dkr.ecr.ap-south-1.amazonaws.com/testrepo:$BUILD_NUMBER
+                 'docker run -dit --name flask docker push 18.212.25.74:8001/repository/k8s-task/flask:5.0'
                  ls -lrth
                  docker ps '''
                }
