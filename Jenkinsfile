@@ -31,17 +31,21 @@ pipeline {
             }
           }
        }
-    stage('k8s deployment'){
-      steps{
-        script{
-           sh '''
-             docker ps
-                 sh 'docker push 18.212.25.74:8001/repository/k8s-task/flask:5.0'
-                 'docker run -dit --name flask docker push 18.212.25.74:8001/repository/k8s-task/flask:5.0'
-                 ls -lrth
-                 docker ps '''
+     stage ('Scan and Build Jar File') {
+            steps {
+               withSonarQubeEnv(installationName: 'Production SonarQubeScanner', credentialsId: 'sqa_2dfbc400bdceb92e733e5c6806316616f9d29581') {
+                sh 'mvn clean package sonar:sonar'
+                }
+            }
+        }
+   // stage('sonar'){
+     // steps{
+       // script{
+          // sh '''
+             //docker ps
+               //  sh 'docker push 18.212.25.74:8001/repository/k8s-task/flask:5.0'
+                // 'docker run -dit --name flask docker push 18.212.25.74:8001/repository/k8s-task/flask:5.0'
+                // ls -lrth
+                // docker ps '''
                }
             }
-	}
-    }
-  }
