@@ -46,3 +46,13 @@ pipeline {
        }
      }
 }
+stage('SonarQube analysis') {
+        script {
+          // requires SonarQube Scanner 2.8+
+        //  scannerHome = tool 'SonarQube Scanner 2.8'
+        }
+	// node('SonarQube Scanner')
+        withSonarQubeEnv('SonarQube Scanner') {
+          sh "${scannerHome}/home/ec2-user/opt/sonar-scanner-4.6.2.2472-linux/bin"
+        }
+      }
