@@ -12,28 +12,20 @@ pipeline {
         git branch: 'main', url: 'https://github.com/ganigapetaravali/task.git'
       }
     }
-  stage('SonarQube analysis') {
+ stage('Sonarqube') {
+    environment {
+        scannerHome = tool 'SonarQubeScanner'
+    }
     steps {
-    withSonarQubeEnv(credentialsId: 'sqa_2dfbc400bdceb92e733e5c6806316616f9d29581', installationName: 'Sonar') {
-         sh '''$SCANNER_HOME/bin/sonar-scanner \
-         -Dsonar.projectKey=k8s-task2 \
-         -Dsonar.projectName=k8s-task \
-         -Dsonar.sources=src/ \
-         -Dsonar.java.binaries=target/classes/ \
-         -Dsonar.exclusions=src/test/java/****/*.java \
-         -Dsonar.java.libraries=/var/lib/jenkins/.m2/**/*.jar \
-         -Dsonar.projectVersion=${BUILD_NUMBER}-${GIT_COMMIT_SHORT}'''
-       }
-     }
-   }
-  stage('SQuality Gate') {
-     steps {
-       timeout(time: 1, unit: 'MINUTES') {
-       waitForQualityGate abortPipeline: true
-       }
-     }
-   }
-   stage('Building image') {
+        withSonarQubeEnv('sonarqube') {
+            sh "${scannerHome}/bin/sonar-scanner"
+        }
+        timeout(time: 10, unit: 'MINUTES') {
+            waitForQualityGate abortPipeline: true
+        }
+    }
+}
+ stage('Building image') {
       steps{
         script {
           sh 'docker build -t flask:6.0 .'
