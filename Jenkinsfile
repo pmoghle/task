@@ -2,7 +2,8 @@ pipeline {
   environment {
     registry = "18.212.25.74:8001/repository/k8s-task/"
     registryCredential = 'nexus'
-    dockerImage = ''	  
+    dockerImage = ''
+    SCANNER_HOME = tool '/home/ec2-user/opt/sonar-scanner-4.6.2.2472-linux'
     }
   agent any
   stages {
@@ -11,6 +12,27 @@ pipeline {
         git branch: 'main', url: 'https://github.com/ganigapetaravali/task.git'
       }
     }
+  stage('SonarQube analysis') {
+    steps {
+    withSonarQubeEnv(credentialsId: 'sqa_2dfbc400bdceb92e733e5c6806316616f9d29581', installationName: 'Sonar') {
+         sh '''$SCANNER_HOME/bin/sonar-scanner \
+         -Dsonar.projectKey=k8s-task2 \
+         -Dsonar.projectName=k8s-task \
+         -Dsonar.sources=src/ \
+         -Dsonar.java.binaries=target/classes/ \
+         -Dsonar.exclusions=src/test/java/****/*.java \
+         -Dsonar.java.libraries=/var/lib/jenkins/.m2/**/*.jar \
+         -Dsonar.projectVersion=${BUILD_NUMBER}-${GIT_COMMIT_SHORT}'''
+       }
+     }
+   }
+  stage('SQuality Gate') {
+     steps {
+       timeout(time: 1, unit: 'MINUTES') {
+       waitForQualityGate abortPipeline: true
+       }
+     }
+   }
    stage('Building image') {
       steps{
         script {
@@ -31,21 +53,4 @@ pipeline {
             }
           }
        }
-     stage ('Scan and Build Jar File') {
-            steps {
-               withSonarQubeEnv(installationName: 'Production SonarQubeScanner', credentialsId: 'sqa_2dfbc400bdceb92e733e5c6806316616f9d29581') {
-               // sh 'mvn clean package sonar:jar'
-                }
-            }
-        }
-   // stage('sonar'){
-     // steps{
-       // script{
-          // sh '''
-             //docker ps
-               //  sh 'docker push 18.212.25.74:8001/repository/k8s-task/flask:5.0'
-                // 'docker run -dit --name flask docker push 18.212.25.74:8001/repository/k8s-task/flask:5.0'
-                // ls -lrth
-                // docker ps '''
-               }
-            }
+     
