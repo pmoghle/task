@@ -3,7 +3,7 @@ pipeline {
       registry = "18.212.25.74:8001/repository/k8s-task/"
       registryCredential = 'nexus'
       dockerImage = ''
-      SCANNER_HOME = tool 'SonarQubeScanner'
+      SCANNER_HOME = tool 'sonarscanner'
       }
     agent any
     stages {
