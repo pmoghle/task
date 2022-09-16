@@ -12,18 +12,18 @@ pipeline {
         git branch: 'main', url: 'https://github.com/ganigapetaravali/task.git'
       }
     }
- stage('Sonarqube') {
-    scannerHome = tool 'SonarQubeScanner'
-    }
-    steps {
-        withSonarQubeEnv('sonarqube') {
-            sh "${scannerHome}/bin/sonar-scanner"
-        }
-        timeout(time: 10, unit: 'MINUTES') {
-            waitForQualityGate abortPipeline: true
-        }
-    }
-}
+//  stage('Sonarqube') {
+//    scannerHome = tool 'SonarQubeScanner'
+//     }
+//     steps {
+//         withSonarQubeEnv('sonarqube') {
+//             sh "${scannerHome}/bin/sonar-scanner"
+//         }
+//         timeout(time: 10, unit: 'MINUTES') {
+//             waitForQualityGate abortPipeline: true
+//         }
+//     }
+// }
  stage('Building image') {
       steps{
         script {
