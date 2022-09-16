@@ -33,8 +33,8 @@ pipeline {
           }
        }
    stage('Sonarqube') {
-      scannerHome = tool 'productionsonarqubescanner'
-       }
+      scannerHome = tool 'SonarQubeScanner'
+	}
       steps {
          withSonarQubeEnv('productionsonarqubescanner') {
              sh "${scannerHome}/bin/sonar-scanner"
