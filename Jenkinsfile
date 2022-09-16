@@ -60,13 +60,13 @@ pipeline {
   // steps {
        script {
        def scannerHome = tool 'SonarQube Scanner';
-           withSonarQubeEnv("sonarqube-container") {
+           withSonarQubeEnv("SonarQube Scanner") {
            sh "${tool("sonarqube")}/home/ec2-user/opt/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
-           -Dsonar.projectKey=test-node-js \
-           -Dsonar.sources=. \
-           -Dsonar.css.node=. \
-           -Dsonar.host.url=http://your-ip-here:9000 \
-           -Dsonar.login=your-generated-token-from-sonarqube-container"
+          // -Dsonar.projectKey=test-node-js \
+           //-Dsonar.sources=. \
+           //-Dsonar.css.node=. \
+            -Dsonar.host.url=http://34.224.97.242:9000 \
+            -Dsonar.login=sqa_2dfbc400bdceb92e733e5c6806316616f9d29581-from-SonarQube Scanner"
                }
       //     }
        }
