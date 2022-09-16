@@ -59,11 +59,11 @@ pipeline {
   stage('Code Quality Check via SonarQube') {
   // steps {
        script {
-	 // #!/usr/bin/env groovy
+	  #!/usr/bin/env groovy
            import hudson.model.*
            node('master') {
-           sh("your shell script")   
-         }
+           sh("your shell script") 
+	   }
        def scannerHome = tool 'SonarQube Scanner';
            withSonarQubeEnv("SonarQube Scanner") {
            sh "${tool("sonarqube")}/home/ec2-user/opt/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
