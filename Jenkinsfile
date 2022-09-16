@@ -57,7 +57,7 @@ pipeline {
 //         }
 //       }
   stage('Code Quality Check via SonarQube') {
-   steps {
+  // steps {
        script {
        def scannerHome = tool 'SonarQube Scanner';
            withSonarQubeEnv("sonarqube-container") {
@@ -68,6 +68,6 @@ pipeline {
            -Dsonar.host.url=http://your-ip-here:9000 \
            -Dsonar.login=your-generated-token-from-sonarqube-container"
                }
-           }
+      //     }
        }
    }
