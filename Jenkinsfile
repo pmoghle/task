@@ -34,7 +34,7 @@ pipeline {
          }
       stage('Sonarqube') {
         environment {
-            scannerHome = tool 'Sonar-2.4'
+            scannerHome = tool 'sonarscanner2.4'
     }
     steps {
         withSonarQubeEnv('productionsonarqubescanner') {
