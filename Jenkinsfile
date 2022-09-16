@@ -46,13 +46,28 @@ pipeline {
        }
      }
 }
-stage('SonarQube analysis') {
-        script {
-          // requires SonarQube Scanner 2.8+
-        //  scannerHome = tool 'SonarQube Scanner 2.8'
-        }
-	// node('SonarQube Scanner')
-        withSonarQubeEnv('SonarQube Scanner') {
-          sh "${scannerHome}/home/ec2-user/opt/sonar-scanner-4.6.2.2472-linux/bin"
-        }
-      }
+// stage('SonarQube analysis') {
+//         script {
+//           // requires SonarQube Scanner 2.8+
+//         //  scannerHome = tool 'SonarQube Scanner 2.8'
+//         }
+// 	// node('SonarQube Scanner')
+//         withSonarQubeEnv('SonarQube Scanner') {
+//           sh "${scannerHome}/home/ec2-user/opt/sonar-scanner-4.6.2.2472-linux/bin"
+//         }
+//       }
+  stage('Code Quality Check via SonarQube') {
+   steps {
+       script {
+       def scannerHome = tool 'SonarQube Scanner';
+           withSonarQubeEnv("sonarqube-container") {
+           sh "${tool("sonarqube")}/home/ec2-user/opt/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
+           -Dsonar.projectKey=test-node-js \
+           -Dsonar.sources=. \
+           -Dsonar.css.node=. \
+           -Dsonar.host.url=http://your-ip-here:9000 \
+           -Dsonar.login=your-generated-token-from-sonarqube-container"
+               }
+           }
+       }
+   }
