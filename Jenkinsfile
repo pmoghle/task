@@ -33,12 +33,17 @@ pipeline {
             }
          }
       stage('Sonarqube') {
-        steps {
-           withSonarQubeEnv('productionsonarqubescanner') {
-               scannerHome = tool 'SonarQubeScanner'
-               sh "${scannerHome}/bin/sonar-scanner"
-              }
-          }
-       }
+        environment {
+            scannerHome = tool 'SonarQubeScanner'
+    }
+    steps {
+        withSonarQubeEnv('productionsonarqubescanner') {
+            sh "${scannerHome}/bin/sonar-scanner"
+        }
+        timeout(time: 10, unit: 'MINUTES') {
+            waitForQualityGate abortPipeline: true
+        }
+    }
+}
    }  
 }
