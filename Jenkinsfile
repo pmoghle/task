@@ -66,7 +66,7 @@ pipeline {
 // 	   }
        def scannerHome = tool 'SonarQube Scanner';
            withSonarQubeEnv("SonarQube Scanner") {
-           sh "${tool("sonarqube")}/home/ec2-user/opt/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
+           sh "${tool("sonarqube")}/bin/sonar-scanner \
           // -Dsonar.projectKey=test-node-js \
            //-Dsonar.sources=. \
            //-Dsonar.css.node=. \
