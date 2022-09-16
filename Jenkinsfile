@@ -59,7 +59,7 @@ pipeline {
   stage('Code Quality Check via SonarQube') {
   // steps {
        script {
-	  #!/usr/bin/env groovy
+	 // #!/usr/bin/env groovy
            import hudson.model.*
            node('master') {
            sh("your shell script")   
